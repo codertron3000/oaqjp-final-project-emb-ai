@@ -8,4 +8,26 @@ def emotion_detector(text_to_analyse):
     myobj = { "raw_document": { "text": text_to_analyse } }
     response = requests.post(url, json = myobj, headers=header)
     formatted_response = json.loads(response.text)
-    return formatted_response
+    anger_score = formatted_response['emotionPredictions'][0]['emotion']['anger']
+    disgust_score = formatted_response['emotionPredictions'][0]['emotion']['disgust']
+    fear_score = formatted_response['emotionPredictions'][0]['emotion']['fear']
+    joy_score = formatted_response['emotionPredictions'][0]['emotion']['joy']
+    sadness_score = formatted_response['emotionPredictions'][0]['emotion']['sadness']
+    def highest_score(options):
+        result = {'emotion': '', 'score': 0}
+        for item in options:
+            if item > result['score']:
+                result['emotion'] = item1
+            else:
+                result = item2
+        return result
+
+    result = {
+        'anger': anger_score,
+        'disgust': disgust_score,
+        'fear': fear_score,
+        'joy': joy_score,
+        'sadness': sadness_score,
+        'dominant_emotion': dominant_emotion,
+    }
+    return result
